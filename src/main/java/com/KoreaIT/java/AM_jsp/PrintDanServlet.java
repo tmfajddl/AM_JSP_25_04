@@ -15,19 +15,29 @@ public class PrintDanServlet extends HttpServlet {
 
 		response.setContentType("text/html;charset=UTF-8");
 		
-		int dan = Integer.parseInt(request.getParameter("dan"));
-
-		response.getWriter().append(String.format("==%d단==<br>",dan));
-
-//		response.getWriter().append("8 * 1 = 8\n");
-//		response.getWriter().append(String.format("%d * %d = %d<br>", 8, 1, 8));
-//		response.getWriter().append(String.format("%d * %d = %d<br>", 8, 2, 16));
+		String inputdan = request.getParameter("dan");
+		String inputlimit = request.getParameter("limit");
+		String inputcolor = request.getParameter("color");
 		
-
-		for (int i = 1; i <= 9; i++) {
-			response.getWriter().append(String.format("%s * %d = %d<br>", dan, i, dan * i));
+		
+		if(inputdan==null) {
+			inputdan = "1";
 		}
+		
+		if(inputlimit==null) {
+			inputlimit ="1";
+		}
+		
+		int dan = Integer.parseInt(inputdan);
+		int limit = Integer.parseInt(inputlimit);
 
+		response.getWriter().append(String.format("<div style='color:%s; background-color:pink;'>==%d단==</div>",inputcolor,dan));
+
+		for (int i = 1; i <= limit; i++) {
+			response.getWriter().append(String.format("<div style='color:%s; background-color:pink;'>%d * %d = %d</div>",inputcolor, dan, i, dan * i));
+		}
+		
 	}
 
 }
+
