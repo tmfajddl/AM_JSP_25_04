@@ -62,6 +62,11 @@ padding: 10px;
 margin-right: 20px;
 }
 
+.button>a:hover{
+border: 2px solid #fa6e8c;
+color: #fa6e8c;c
+}
+
 body>a:hover{
 border: 2px solid #fa6e8c;
 color: #fa6e8c;
