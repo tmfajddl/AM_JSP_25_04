@@ -5,6 +5,10 @@
 	pageEncoding="UTF-8"%>
 <%
 List<Map<String, Object>> articleRows = (List<Map<String, Object>>) request.getAttribute("articleRows");
+
+int cPage = (int) request.getAttribute("page");
+int totalCnt = (int) request.getAttribute("totalCnt");
+int totalPage = (int) request.getAttribute("totalPage");
 %>
 <!DOCTYPE html>
 <html>
@@ -80,14 +84,28 @@ border: 2px solid #fa6e8c;
 color: #fa6e8c;
 }
 
-ul{
-width: 100vw;
+.page {
+	font-size: 1.4rem;
+	width: 100vw;
 display: flex;
 justify-content: center;
 }
 
-li>a:hover{
+.page>a {
+	color: black;
+	text-decoration: none;
+}
+
+.page>a.cPage {
 color: #fa6e8c;
+}
+
+.articleNumber{
+margin: 0 auto;
+width: 80vw;
+display: flex;
+justify-content: flex-start;
+margin-top: 20px;
 }
 </style>
 </head>
@@ -97,6 +115,11 @@ color: #fa6e8c;
 	<a href="../home/main">메인으로 이동</a>
 	<a href="/AM_JSP_25_04/jsp/article/write.jsp">글쓰기</a>
 </div>
+
+	<div class = "articleNumber">
+		총 게시글 갯수 :
+		<%=totalCnt%>개
+	</div>
 	
 	<table style="border-collapse: collapse; border: 5px solid black;"
 		border="1px">
@@ -132,23 +155,25 @@ color: #fa6e8c;
 		</tbody>
 	</table>
 
-<ul>
-	<li><a href="http://localhost:8080/AM_JSP_25_04//article/list?page=1">[1]</a></li>
-	<li><a href="http://localhost:8080/AM_JSP_25_04//article/list?page=2"">[2]</a></li>
-	<li><a href="http://localhost:8080/AM_JSP_25_04//article/list?page=3"">[3]</a></li>
-</ul>
-	<!-- 
-	<ul>
-<%-- 		<%
-		for (Map<String, Object> articleRow : articleRows) {
+	<div class="page">
+		<%
+		for (int i = 1; i <= totalPage; i++) {
+			if(totalPage>10){
+				for(int j = 1; j <= 10; j++){
+					%>
+					<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+					<%
+				}
+			}
+			else{
+				%>
+				<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+				<%
+			}
+		}
 		%>
-		<li><%=articleRow.get("id")%>번,<%=articleRow.get("regDate")%>, <a
-			href="detail?id=<%=articleRow.get("id")%>"><%=articleRow.get("title")%></a>,<%=articleRow.get("body")%></li>
-}
-		%>
---%>
-	</ul>
- -->
+
+	</div>
 
 </body>
 </html>
