@@ -75,12 +75,8 @@ body>a:hover{
 border: 2px solid #fa6e8c;
 color: #fa6e8c;
 }
-tbody>tr>td>a{
-border: 2px solid black;
-}
 
 tbody>tr>td>a:hover{
-border: 2px solid #fa6e8c;
 color: #fa6e8c;
 }
 
@@ -129,9 +125,6 @@ margin-top: 20px;
 				<th class = "date">날짜</th>
 				<th class = "title">제목</th>
 				<th class = "body">내용</th>
-				<th>삭제</th>
-				<th>수정</th>
-				<th>상세보기</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -141,13 +134,8 @@ margin-top: 20px;
 			<tr style="text-align: center;">
 				<td><%=articleRow.get("id")%>번</td>
 				<td><%=articleRow.get("regDate")%></td>
-				<td><%=articleRow.get("title")%></td>
+				<td><a href="detail?id=<%=articleRow.get("id")%>"><%=articleRow.get("title")%></a></td>
 				<td><%=articleRow.get("body")%></td>
-				<td><a
-					onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) { return false; }"
-					href="doDelete?id=<%=articleRow.get("id")%>">삭제</a></td>
-					<td><a href="doModify?id=<%=articleRow.get("id")%>">수정</a></td>
-					<td><a href="detail?id=<%=articleRow.get("id")%>">보기</a></td>
 			</tr>
 			<%
 			}
@@ -177,7 +165,7 @@ margin-top: 20px;
 					}	
 				}
 				else{
-				for(int i = cPage-4; i <= cPage+4; i++){
+				for(int i = cPage-4; i <= cPage+5; i++){
 					%>
 					&nbsp
 					<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
