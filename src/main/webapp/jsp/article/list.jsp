@@ -5,10 +5,11 @@
 	pageEncoding="UTF-8"%>
 <%
 List<Map<String, Object>> articleRows = (List<Map<String, Object>>) request.getAttribute("articleRows");
-
+String loginid = (String) request.getAttribute("loginid");
 int cPage = (int) request.getAttribute("page");
 int totalCnt = (int) request.getAttribute("totalCnt");
 int totalPage = (int) request.getAttribute("totalPage");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -103,15 +104,18 @@ display: flex;
 justify-content: flex-start;
 margin-top: 20px;
 }
+
 </style>
+
 </head>
+
+   
 <body>
 	<h2>게시글 목록</h2>
 <div class="button">
 	<a href="../home/main">메인으로 이동</a>
-	<a href="/AM_JSP_25_04/jsp/article/write.jsp">글쓰기</a>
+	<a class ="write" href="http://localhost:8080/AM_JSP_25_04/home/write2">글쓰기</a>
 </div>
-
 	<div class = "articleNumber">
 		총 게시글 갯수 :
 		<%=totalCnt%>개

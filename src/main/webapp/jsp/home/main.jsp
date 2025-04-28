@@ -41,6 +41,9 @@ color: #fa6e8c;
 
 	<ul>
 		<li><a href="../article/list">리스트로 이동</a></li>
+		<li><a href="http://localhost:8080/AM_JSP_25_04/member/join2">회원가입</a></li>
+		<li><a href="http://localhost:8080/AM_JSP_25_04/member/login">로그인</a></li>
+		<li><a href="http://localhost:8080/AM_JSP_25_04/member/logout">로그아웃</a></li>
 	</ul>
 
 </body>

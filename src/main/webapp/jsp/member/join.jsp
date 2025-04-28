@@ -1,16 +1,8 @@
-<%@page import="java.util.List"%>
-<%@page import="java.util.Map"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("articleRow");
-%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>게시글 작성</title>
+
+<title>회원가입</title>
 <style>
 body {
 	  margin: 0;
@@ -22,7 +14,7 @@ a{
   color: inherit;
   text-decoration: inherit;
 }
-.title{
+.id{
 font-size: 3rem;
 }
 
@@ -43,7 +35,7 @@ display: flex;
 flex-direction: column;
 }
 
-input,textarea{
+input{
   display: block;
   width: 200px;
   height: 30px;
@@ -60,16 +52,21 @@ color: #fa6e8c;
 }
 
 </style>
+
 </head>
 <body>
-<h2 class = "title">게시글 작성</h2>
+<h2 class = "title">회원가입</h2>
 
-<form action="http://localhost:8080/AM_JSP_25_04//article/doWrite" method="post">
+<form action="http://localhost:8080/AM_JSP_25_04//member/join" method="post">
 
-<div>제목:
-<input type="text" name="title" required/></div>
-<div>내용: 
-<textarea name="body" required></textarea></div>
+<div>아이디:
+<input type="text" name="loginid" required/></div>
+<div>비밀번호: 
+<input name="loginpw" required/></div>
+<div>비밀번호 확인: 
+<input name="loginpw2" required/></div>
+<div>이름: 
+<input name="name" required/></div>
 <br>
 <div><button type="submit">확인</button></div>
 

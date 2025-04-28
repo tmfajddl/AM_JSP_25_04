@@ -1,5 +1,10 @@
 package com.KoreaIT.java.AM_jsp.servlet;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,14 +15,9 @@ import java.util.Map;
 import com.KoreaIT.java.AM_jsp.util.DBUtil;
 import com.KoreaIT.java.AM_jsp.util.SecSql;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+@WebServlet("/member/login")
+public class MemberloginServlet extends HttpServlet {
 
-@WebServlet("/article/doWrite")
-public class ArticleWriteServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -41,23 +41,19 @@ public class ArticleWriteServlet extends HttpServlet {
 		try {
 			conn = DriverManager.getConnection(url, user, password);
 			response.getWriter().append("연결 성공!");
-
-			String title = request.getParameter("title");
-			String body = request.getParameter("body");
-					SecSql sql = SecSql.from("INSERT");
-					sql.append("INTO article");
-					sql.append("SET regDate = NOW(),");
-					sql.append("title = ?,", title);
-					sql.append("`body` = ?;", body);
-
-					int id = DBUtil.insert(conn, sql);
-
-					response.getWriter()
-							.append(String.format("<script>alert('%d번 글이 등록됨'); location.replace('list');</script>", id));
-					
-
-
-		} catch (SQLException e) {
+			
+			SecSql sql = SecSql.from("SELECT *");
+			sql.append("FROM userName;");
+			
+			Map<String, Object> memberMap = DBUtil.selectRow(conn, sql);
+            if (!memberMap.isEmpty()) {
+            	response.getWriter()
+				.append(String.format("<script>alert('로그인 되어있습니다.'); location.replace('http://localhost:8080/AM_JSP_25_04/home/main');</script>"));
+            }
+			
+            else{request.getRequestDispatcher("/jsp/member/login.jsp").forward(request, response);
+            }
+            } catch (SQLException e) {
 			System.out.println("에러 1 : " + e);
 		} finally {
 			try {

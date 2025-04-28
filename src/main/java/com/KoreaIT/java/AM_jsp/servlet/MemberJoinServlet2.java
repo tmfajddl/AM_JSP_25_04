@@ -1,5 +1,10 @@
 package com.KoreaIT.java.AM_jsp.servlet;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,14 +15,9 @@ import java.util.Map;
 import com.KoreaIT.java.AM_jsp.util.DBUtil;
 import com.KoreaIT.java.AM_jsp.util.SecSql;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+@WebServlet("/member/join2")
+public class MemberJoinServlet2 extends HttpServlet {
 
-@WebServlet("/article/doWrite")
-public class ArticleWriteServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -41,22 +41,8 @@ public class ArticleWriteServlet extends HttpServlet {
 		try {
 			conn = DriverManager.getConnection(url, user, password);
 			response.getWriter().append("연결 성공!");
-
-			String title = request.getParameter("title");
-			String body = request.getParameter("body");
-					SecSql sql = SecSql.from("INSERT");
-					sql.append("INTO article");
-					sql.append("SET regDate = NOW(),");
-					sql.append("title = ?,", title);
-					sql.append("`body` = ?;", body);
-
-					int id = DBUtil.insert(conn, sql);
-
-					response.getWriter()
-							.append(String.format("<script>alert('%d번 글이 등록됨'); location.replace('list');</script>", id));
-					
-
-
+			
+		request.getRequestDispatcher("/jsp/member/join.jsp").forward(request, response);
 		} catch (SQLException e) {
 			System.out.println("에러 1 : " + e);
 		} finally {
