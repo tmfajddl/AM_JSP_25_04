@@ -157,17 +157,41 @@ margin-top: 20px;
 
 	<div class="page">
 		<%
-		for (int i = 1; i <= totalPage; i++) {
 			if(totalPage>10){
-				for(int j = 1; j <= 10; j++){
+				if(cPage<5){
+					for(int i = 1; i <= 10; i++){
+						%>
+						&nbsp
+						<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+						&nbsp
+						<%
+					}	
+				}
+			else if(cPage>totalPage-4){
+					for(int i = totalPage-9; i <= totalPage; i++){
+						%>
+						&nbsp
+						<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+						&nbsp
+						<%
+					}	
+				}
+				else{
+				for(int i = cPage-4; i <= cPage+4; i++){
 					%>
+					&nbsp
 					<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+					&nbsp
 					<%
+				}
 				}
 			}
 			else{
+				for (int i = 1; i <= totalPage; i++) {
 				%>
+				&nbsp
 				<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+				&nbsp
 				<%
 			}
 		}

@@ -44,16 +44,6 @@ public class ArticleWriteServlet extends HttpServlet {
 
 			String title = request.getParameter("title");
 			String body = request.getParameter("body");
-			
-				if(title==null) {
-					response.getWriter()
-					.append(String.format("<script>alert('제목을 입력하세요.'); location.replace('list');</script>"));
-				}
-				else if(body ==null){
-					response.getWriter()
-					.append(String.format("<script>alert('내용을 입력하세요.'); location.replace('list');</script>"));
-				}
-				else {
 					SecSql sql = SecSql.from("INSERT");
 					sql.append("INTO article");
 					sql.append("SET regDate = NOW(),");
@@ -65,7 +55,6 @@ public class ArticleWriteServlet extends HttpServlet {
 					response.getWriter()
 							.append(String.format("<script>alert('%d번 글이 등록됨'); location.replace('list');</script>", id));
 					
-				}
 
 
 		} catch (SQLException e) {
