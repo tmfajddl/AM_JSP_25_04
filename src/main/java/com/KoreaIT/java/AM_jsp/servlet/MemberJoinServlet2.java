@@ -41,8 +41,13 @@ public class MemberJoinServlet2 extends HttpServlet {
 		try {
 			conn = DriverManager.getConnection(url, user, password);
 			response.getWriter().append("연결 성공!");
-			
-		request.getRequestDispatcher("/jsp/member/join.jsp").forward(request, response);
+			if(MemberloginServlet2.username == null) {
+				request.getRequestDispatcher("/jsp/member/join.jsp").forward(request, response);
+			}
+			else {
+				response.getWriter()
+				.append(String.format("<script>alert('로그인 되어있습니다.'); location.replace('http://localhost:8080/AM_JSP_25_04/home/main');</script>"));
+			}
 		} catch (SQLException e) {
 			System.out.println("에러 1 : " + e);
 		} finally {

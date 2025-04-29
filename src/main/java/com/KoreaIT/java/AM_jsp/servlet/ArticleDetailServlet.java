@@ -44,7 +44,6 @@ public class ArticleDetailServlet extends HttpServlet {
 
 			int id = Integer.parseInt(request.getParameter("id"));
 
-//			String sql = String.format("SELECT * FROM article WHERE id = %d;", id);
 
 			SecSql sql = SecSql.from("SELECT *");
 			sql.append("FROM article");
@@ -53,6 +52,10 @@ public class ArticleDetailServlet extends HttpServlet {
 			Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
 
 			request.setAttribute("articleRow", articleRow);
+			
+            String username = MemberloginServlet2.username;
+			
+			request.setAttribute("username", username);
 
 			request.getRequestDispatcher("/jsp/article/detail.jsp").forward(request, response);
 

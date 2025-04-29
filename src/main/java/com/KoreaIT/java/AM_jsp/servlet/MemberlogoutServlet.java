@@ -41,20 +41,12 @@ public class MemberlogoutServlet extends HttpServlet {
 			conn = DriverManager.getConnection(url, user, password);
 			response.getWriter().append("연결 성공!");
 			
-			SecSql sql = SecSql.from("SELECT *");
-			sql.append("FROM userName;");
-			
-			Map<String, Object> memberMap = DBUtil.selectRow(conn, sql);
-            if (memberMap.isEmpty()) {
+			if(MemberloginServlet2.username == null) {
             	response.getWriter()
 				.append(String.format("<script>alert('로그인 되어있지 않습니다.'); location.replace('http://localhost:8080/AM_JSP_25_04/home/main');</script>"));
             }
             else{
-            	sql = SecSql.from("DELETE");
-    			sql.append("FROM userName");
-    			sql.append("LIMIT 1;");
-    			
-    			DBUtil.delete(conn, sql);
+            	MemberloginServlet2.username = null;
 
     			response.getWriter()
     					.append(String.format("<script>alert('로그아웃 되었습니다.'); location.replace('http://localhost:8080/AM_JSP_25_04/home/main');</script>"));

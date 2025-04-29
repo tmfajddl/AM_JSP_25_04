@@ -5,11 +5,10 @@
 	pageEncoding="UTF-8"%>
 <%
 List<Map<String, Object>> articleRows = (List<Map<String, Object>>) request.getAttribute("articleRows");
-String loginid = (String) request.getAttribute("loginid");
 int cPage = (int) request.getAttribute("page");
 int totalCnt = (int) request.getAttribute("totalCnt");
 int totalPage = (int) request.getAttribute("totalPage");
-
+String username = (String) request.getAttribute("username");
 %>
 <!DOCTYPE html>
 <html>
@@ -105,6 +104,9 @@ justify-content: flex-start;
 margin-top: 20px;
 }
 
+.active{
+display: none;
+}
 </style>
 
 </head>
@@ -114,7 +116,7 @@ margin-top: 20px;
 	<h2>게시글 목록</h2>
 <div class="button">
 	<a href="../home/main">메인으로 이동</a>
-	<a class ="write" href="http://localhost:8080/AM_JSP_25_04/home/write2">글쓰기</a>
+	<a class ="<%= username == null ? "active":""%>" href="http://localhost:8080/AM_JSP_25_04/home/write2">글쓰기</a>
 </div>
 	<div class = "articleNumber">
 		총 게시글 갯수 :
@@ -129,6 +131,7 @@ margin-top: 20px;
 				<th class = "date">날짜</th>
 				<th class = "title">제목</th>
 				<th class = "body">내용</th>
+				<th class = "writer">작성자</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -140,6 +143,7 @@ margin-top: 20px;
 				<td><%=articleRow.get("regDate")%></td>
 				<td><a href="detail?id=<%=articleRow.get("id")%>"><%=articleRow.get("title")%></a></td>
 				<td><%=articleRow.get("body")%></td>
+				<td><%=articleRow.get("writer")%></td>
 			</tr>
 			<%
 			}

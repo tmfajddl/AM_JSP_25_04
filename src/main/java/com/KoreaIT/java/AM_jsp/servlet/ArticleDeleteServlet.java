@@ -41,17 +41,24 @@ public class ArticleDeleteServlet extends HttpServlet {
 		try {
 			conn = DriverManager.getConnection(url, user, password);
 			response.getWriter().append("연결 성공!");
+			
+			if(MemberloginServlet2.username==null) {
+				response.getWriter()
+				.append(String.format("<script>alert('권한이 없습니다.'); location.replace('http://localhost:8080/AM_JSP_25_04/article/detail');</script>"));
+			}
+			else {
+				int id = Integer.parseInt(request.getParameter("id"));
 
-			int id = Integer.parseInt(request.getParameter("id"));
+				SecSql sql = SecSql.from("DELETE");
+				sql.append("FROM article");
+				sql.append("WHERE id = ?;", id);
 
-			SecSql sql = SecSql.from("DELETE");
-			sql.append("FROM article");
-			sql.append("WHERE id = ?;", id);
+				DBUtil.delete(conn, sql);
 
-			DBUtil.delete(conn, sql);
+				response.getWriter()
+						.append(String.format("<script>alert('%d번 글이 삭제됨'); location.replace('list');</script>", id));
+			}
 
-			response.getWriter()
-					.append(String.format("<script>alert('%d번 글이 삭제됨'); location.replace('list');</script>", id));
 
 		} catch (SQLException e) {
 			System.out.println("에러 1 : " + e);

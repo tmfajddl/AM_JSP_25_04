@@ -3,7 +3,9 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
+	
+	<%
+String username = (String) request.getAttribute("username");
 Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("articleRow");
 %>
 <!DOCTYPE html>
@@ -65,6 +67,10 @@ display: flex;
 justify-content: center;
 }
 
+.active{
+display: none;
+}
+
 </style>
 </head>
 <body>
@@ -78,17 +84,23 @@ justify-content: center;
 		날짜 :
 		<%=articleRow.get("regDate")%></div>
 	<div>
+		업데이트 날짜 :
+		<%=articleRow.get("updateDate")%></div>
+	<div>
 		제목 :
 		<%=articleRow.get("title")%></div>
 	<div>
 		내용 :
 		<%=articleRow.get("body")%></div>
+	<div>
+		작성자 :
+		<%=articleRow.get("writer")%></div>
 	</section>
 
 
 	<div class="button">
-	<a href="doModify?id=<%=articleRow.get("id")%>">수정</a>
-	<a
+	<a class ="<%= username.equals(articleRow.get("writer")) ? "":"active"%>" href="doModify?id=<%=articleRow.get("id")%>">수정</a>
+	<a class ="<%= username.equals(articleRow.get("writer")) ? "":"active"%>"
 					onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) { return false; }"
 					href="doDelete?id=<%=articleRow.get("id")%>">삭제</a>
 		<a href="list">리스트로 돌아가기</a>

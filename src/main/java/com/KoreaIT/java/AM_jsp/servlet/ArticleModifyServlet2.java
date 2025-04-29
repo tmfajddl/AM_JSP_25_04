@@ -55,7 +55,8 @@ public class ArticleModifyServlet2 extends HttpServlet {
 				String body = request.getParameter("body");
 	
 				sql = SecSql.from("UPDATE article");
-				sql.append("SET title = ?,",title);
+				sql.append("SET updateDate = NOW(),");
+				sql.append("title = ?,",title);
 				sql.append("`body` = ?",body);
 				 sql.append("WHERE id = ?;", id);
 

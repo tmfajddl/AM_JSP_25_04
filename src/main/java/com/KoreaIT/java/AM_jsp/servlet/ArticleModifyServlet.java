@@ -51,8 +51,14 @@ public class ArticleModifyServlet extends HttpServlet {
 				Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
 				
 				request.setAttribute("articleRow", articleRow);
-
-				request.getRequestDispatcher("/jsp/article/modify.jsp").forward(request, response);
+				
+				if(MemberloginServlet2.username==null) {
+					response.getWriter()
+					.append(String.format("<script>alert('권한이 없습니다.'); location.replace('http://localhost:8080/AM_JSP_25_04/article/detail');</script>"));
+				}
+				else {
+					request.getRequestDispatcher("/jsp/article/modify.jsp").forward(request, response);
+				}
 			
 
 		} catch (SQLException e) {

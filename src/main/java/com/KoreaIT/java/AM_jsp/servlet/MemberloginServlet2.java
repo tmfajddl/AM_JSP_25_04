@@ -17,6 +17,8 @@ import com.KoreaIT.java.AM_jsp.util.SecSql;
 
 @WebServlet("/member/login2")
 public class MemberloginServlet2 extends HttpServlet {
+	
+	public static String username = null;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -69,11 +71,8 @@ public class MemberloginServlet2 extends HttpServlet {
             else {
             	response.getWriter()
 				.append(String.format("<script>alert('%s 회원님 로그인 되었습니다.'); location.replace('http://localhost:8080/AM_JSP_25_04/home/main');</script>",loginid));
-            	sql = SecSql.from("INSERT");
-				sql.append("INTO userName");
-				sql.append("SET regDate = NOW(),");
-				sql.append("loginid = ?;", loginid);
-				DBUtil.insert(conn, sql);
+				
+				username = loginid;
             }
          
 

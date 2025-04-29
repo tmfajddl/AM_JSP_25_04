@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%
+String username = (String) request.getAttribute("username");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +36,10 @@ ul>li:hover>a{
 color: #fa6e8c;
 }
 
+.active{
+display: none;
+}
+
 </style>
 </head>
 <body>
@@ -41,9 +47,9 @@ color: #fa6e8c;
 
 	<ul>
 		<li><a href="../article/list">리스트로 이동</a></li>
-		<li><a href="http://localhost:8080/AM_JSP_25_04/member/join2">회원가입</a></li>
-		<li><a href="http://localhost:8080/AM_JSP_25_04/member/login">로그인</a></li>
-		<li><a href="http://localhost:8080/AM_JSP_25_04/member/logout">로그아웃</a></li>
+		<li><a class ="<%= username == null ? "":"active"%>" href="http://localhost:8080/AM_JSP_25_04/member/join2">회원가입</a></li>
+		<li><a class ="<%= username == null ? "":"active"%>" href="http://localhost:8080/AM_JSP_25_04/member/login">로그인</a></li>
+		<li><a class ="<%= username == null ? "active":""%>" href="http://localhost:8080/AM_JSP_25_04/member/logout">로그아웃</a></li>
 	</ul>
 
 </body>

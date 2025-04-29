@@ -62,16 +62,11 @@ public class ArticleListServlet extends HttpServlet {
 			sql.append("LIMIT ?, ?;", limitFrom, itemsInAPage);
 
 			List<Map<String, Object>> articleRows = DBUtil.selectRows(conn, sql);
+
+			String username = MemberloginServlet2.username;
 			
-			sql = SecSql.from("SELECT *");
-			sql.append("FROM userName");
-			sql.append("LIMIT 1;");
-			
-			Map<String, Object> memberMap = DBUtil.selectRow(conn, sql);
-			String loginid = (String) memberMap.get("loginid");
-			
+			request.setAttribute("username", username);
 			request.setAttribute("page", page);
-			request.setAttribute("loginid", loginid);
 			request.setAttribute("articleRows", articleRows);
 			request.setAttribute("totalCnt", totalCnt);
 			request.setAttribute("totalPage", totalPage);
