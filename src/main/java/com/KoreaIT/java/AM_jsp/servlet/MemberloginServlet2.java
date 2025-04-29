@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,11 +17,14 @@ import java.util.Map;
 import com.KoreaIT.java.AM_jsp.util.DBUtil;
 import com.KoreaIT.java.AM_jsp.util.SecSql;
 
+import dao.MemberDao;
+
 @WebServlet("/member/login2")
 public class MemberloginServlet2 extends HttpServlet {
 	
-	public static String username = null;
 
+	public static String username = null;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
@@ -42,37 +47,37 @@ public class MemberloginServlet2 extends HttpServlet {
 		try {
 			conn = DriverManager.getConnection(url, user, password);
 			response.getWriter().append("연결 성공!");
+			
+			MemberDao memberdao = new MemberDao(conn);
 
 			String loginid = request.getParameter("loginid");
-			String loginpw = request.getParameter("loginpw");
-			
-			SecSql sql = SecSql.from("SELECT *");
-			sql.append("FROM `member`");
-			sql.append("WHERE loginid = ? AND", loginid);
-			sql.append("loginpw = ?;", loginpw);
+			String loginpw = request.getParameter("loginpw");;
 				
-			Map<String, Object> memberMap = DBUtil.selectRow(conn, sql);
+			Map<String, Object> memberRow = memberdao.findMember(loginid, loginpw);
 			
-            if (memberMap.isEmpty()) {
-            	sql = SecSql.from("SELECT *");
-    			sql.append("FROM `member`");
-    			sql.append("WHERE loginid = ?;", loginid);
+            if (memberRow.isEmpty()) {
 
-    			memberMap = DBUtil.selectRow(conn, sql);
-    			if(memberMap.isEmpty()) {
+    			memberRow = memberdao.findId(loginid);
+    			if(memberRow.isEmpty()) {
     				response.getWriter()
 					.append(String.format("<script>alert('아이디가 존재하지 않습니다.'); location.replace('http://localhost:8080/AM_JSP_25_04/member/login');</script>"));
     			}
-    			else if(!memberMap.isEmpty()){
+    			else if(!memberRow.isEmpty()){
 					response.getWriter()
 					.append(String.format("<script>alert('비밀번호가 틀립니다.'); location.replace('http://localhost:8080/AM_JSP_25_04/member/login');</script>"));
     			}
               }
             else {
+            	
+    			HttpSession session = request.getSession();
+    			session.setAttribute("loginedMember", memberRow);
+    			session.setAttribute("loginedMemberId", memberRow.get("id"));
+    			session.setAttribute("loginedMemberLoginId", memberRow.get("loginId"));
+    			
             	response.getWriter()
 				.append(String.format("<script>alert('%s 회원님 로그인 되었습니다.'); location.replace('http://localhost:8080/AM_JSP_25_04/home/main');</script>",loginid));
 				
-				username = loginid;
+            	username = loginid;
             }
          
 

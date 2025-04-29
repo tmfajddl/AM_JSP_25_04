@@ -10,6 +10,7 @@ import java.util.Map;
 import com.KoreaIT.java.AM_jsp.util.DBUtil;
 import com.KoreaIT.java.AM_jsp.util.SecSql;
 
+import dao.ArticleDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -42,13 +43,10 @@ public class ArticleModifyServlet extends HttpServlet {
 			conn = DriverManager.getConnection(url, user, password);
 			response.getWriter().append("연결 성공!");
 			String inputId = request.getParameter("id");
-
 				int id = Integer.parseInt(inputId);
-				SecSql sql = SecSql.from("SELECT *");
-				sql.append("FROM article");
-				sql.append("WHERE id = ?;", id);
+				ArticleDao articledao = new ArticleDao(conn);
 
-				Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
+				Map<String, Object> articleRow = articledao.showDetail(id);
 				
 				request.setAttribute("articleRow", articleRow);
 				

@@ -112,7 +112,7 @@ display: none;
 }
 
 .btn2 > ul{
-width: 10vw;
+width: 15vw;
 display: flex;
 justify-content: space-between;
 }
@@ -140,6 +140,9 @@ color: #fa6e8c;
 	<h2>게시글 목록</h2>
 	<div class = "btn2">
 		<ul>
+			<%if(username != null){%>
+	<li><%=username %>님 환영합니다.</li>
+<%} %>
 		<li><a class ="<%= username == null ? "":"active"%>" href="http://localhost:8080/AM_JSP_25_04/member/join2">회원가입</a></li>
 		<li><a class ="<%= username == null ? "":"active"%>" href="http://localhost:8080/AM_JSP_25_04/member/login">로그인</a></li>
 		<li><a class ="<%= username == null ? "active":""%>" href="http://localhost:8080/AM_JSP_25_04/member/logout">로그아웃</a></li>

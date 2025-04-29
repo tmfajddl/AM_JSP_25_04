@@ -10,6 +10,7 @@ import java.util.Map;
 import com.KoreaIT.java.AM_jsp.util.DBUtil;
 import com.KoreaIT.java.AM_jsp.util.SecSql;
 
+import dao.ArticleDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -45,15 +46,10 @@ public class ArticleWriteServlet extends HttpServlet {
 			String title = request.getParameter("title");
 			String body = request.getParameter("body");
 			String writer = MemberloginServlet2.username;
-					SecSql sql = SecSql.from("INSERT");
-					sql.append("INTO article");
-					sql.append("SET regDate = NOW(),");
-					sql.append("updateDate = NOW(),");
-					sql.append("title = ?,", title);
-					sql.append("`body` = ?,", body);
-					sql.append("writer = ?;", writer);
+			
+			ArticleDao articledao = new ArticleDao(conn);
 
-					int id = DBUtil.insert(conn, sql);
+					int id = articledao.doWrite(title, body, writer);
 
 					response.getWriter()
 							.append(String.format("<script>alert('%d번 글이 등록됨'); location.replace('list');</script>", id));

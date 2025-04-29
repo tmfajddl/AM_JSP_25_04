@@ -10,6 +10,7 @@ import java.util.Map;
 import com.KoreaIT.java.AM_jsp.util.DBUtil;
 import com.KoreaIT.java.AM_jsp.util.SecSql;
 
+import dao.ArticleDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -46,22 +47,16 @@ public class ArticleListServlet extends HttpServlet {
 			if (request.getParameter("page") != null && request.getParameter("page").length() != 0) {
 				page = Integer.parseInt(request.getParameter("page"));
 			}
+			
+			ArticleDao articledao = new ArticleDao(conn);
 
 			int itemsInAPage = 10;
 			int limitFrom = (page - 1) * itemsInAPage;
 
-			SecSql sql = SecSql.from("SELECT COUNT(*)");
-			sql.append("FROM article;");
-
-			int totalCnt = DBUtil.selectRowIntValue(conn, sql);
+			int totalCnt = articledao.listCount(limitFrom, itemsInAPage);
 			int totalPage = (int) Math.ceil(totalCnt / (double)itemsInAPage);
 
-			sql = SecSql.from("SELECT *");
-			sql.append("FROM article");
-			sql.append("ORDER BY id DESC");
-			sql.append("LIMIT ?, ?;", limitFrom, itemsInAPage);
-
-			List<Map<String, Object>> articleRows = DBUtil.selectRows(conn, sql);
+			List<Map<String, Object>> articleRows = articledao.showlist(limitFrom, itemsInAPage);
 
 			String username = MemberloginServlet2.username;
 			

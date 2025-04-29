@@ -10,6 +10,7 @@ import java.util.Map;
 import com.KoreaIT.java.AM_jsp.util.DBUtil;
 import com.KoreaIT.java.AM_jsp.util.SecSql;
 
+import dao.ArticleDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -44,23 +45,15 @@ public class ArticleModifyServlet2 extends HttpServlet {
 			String inputId = request.getParameter("id");
 
 				int id = Integer.parseInt(inputId);
-				SecSql sql = SecSql.from("SELECT *");
-				sql.append("FROM article");
-				sql.append("WHERE id = ?;", id);
+				ArticleDao articledao = new ArticleDao(conn);
 
-				Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
+				Map<String, Object> articleRow = articledao.showDetail(id);
 				
 			
 			    String title = request.getParameter("title");
 				String body = request.getParameter("body");
-	
-				sql = SecSql.from("UPDATE article");
-				sql.append("SET updateDate = NOW(),");
-				sql.append("title = ?,",title);
-				sql.append("`body` = ?",body);
-				 sql.append("WHERE id = ?;", id);
-
-				DBUtil.update(conn, sql);
+				
+				articledao.doUpdate(title, body, id);
 
 			response.getWriter()
 					.append(String.format("<script>alert('%d번 글이 수정됨'); location.replace('list');</script>", id));

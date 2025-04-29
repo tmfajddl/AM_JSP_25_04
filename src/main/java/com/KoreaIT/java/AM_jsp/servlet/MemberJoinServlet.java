@@ -15,6 +15,8 @@ import java.util.Map;
 import com.KoreaIT.java.AM_jsp.util.DBUtil;
 import com.KoreaIT.java.AM_jsp.util.SecSql;
 
+import dao.MemberDao;
+
 @WebServlet("/member/join")
 public class MemberJoinServlet extends HttpServlet {
 
@@ -40,6 +42,8 @@ public class MemberJoinServlet extends HttpServlet {
 		try {
 			conn = DriverManager.getConnection(url, user, password);
 			response.getWriter().append("연결 성공!");
+			
+			MemberDao memberdao = new MemberDao(conn);
 
 			String loginid = request.getParameter("loginid");
 			String loginpw = request.getParameter("loginpw");
@@ -47,20 +51,11 @@ public class MemberJoinServlet extends HttpServlet {
 			String name = request.getParameter("name");
 			
 			if(loginpw.equals(loginpw2)) {
-				SecSql sql = SecSql.from("SELECT *");
-				sql.append("FROM `member`");
-				sql.append("WHERE loginid = ?;",loginid);
 				
-				Map<String, Object> articleMap = DBUtil.selectRow(conn, sql);
+				Map<String, Object> articleMap = memberdao.findId(loginid);
                 if (articleMap.isEmpty()) {
-                	sql = SecSql.from("INSERT");
-					sql.append("INTO `member`");
-					sql.append("SET regDate = NOW(),");
-					sql.append("loginid = ?,", loginid);
-					sql.append("loginpw = ?,", loginpw);
-					sql.append("`name` = ?;", name);
 
-					int id = DBUtil.insert(conn, sql);
+					int id = memberdao.doJoin(loginid, loginpw2, name);
 
 					response.getWriter()
 							.append(String.format("<script>alert('%d번 회원이 등록됨'); location.replace('http://localhost:8080/AM_JSP_25_04/home/main');</script>", id));

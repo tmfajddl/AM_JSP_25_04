@@ -99,10 +99,15 @@ display: none;
 
 
 	<div class="button">
-	<a class ="<%= username.equals(articleRow.get("writer")) ? "":"active"%>" href="doModify?id=<%=articleRow.get("id")%>">수정</a>
-	<a class ="<%= username.equals(articleRow.get("writer")) ? "":"active"%>"
-					onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) { return false; }"
-					href="doDelete?id=<%=articleRow.get("id")%>">삭제</a>
+	<%if(username != null){
+	if(username.equals(articleRow.get("writer"))){%>
+		<a href="doModify?id=<%=articleRow.get("id")%>">수정</a>
+		<a onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) { return false; }"
+						href="doDelete?id=<%=articleRow.get("id")%>">삭제</a>
+	<%
+		}
+	}
+	%>
 		<a href="list">리스트로 돌아가기</a>
 		<a href="../home/main">메인으로 이동</a>
 	</div>

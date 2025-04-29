@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -47,6 +49,11 @@ public class MemberlogoutServlet extends HttpServlet {
             }
             else{
             	MemberloginServlet2.username = null;
+            	
+    			HttpSession session = request.getSession();
+    			session.removeAttribute("loginedMember");
+    			session.removeAttribute("loginedMemberId");
+    			session.removeAttribute("loginedMemberLoginId");
 
     			response.getWriter()
     					.append(String.format("<script>alert('로그아웃 되었습니다.'); location.replace('http://localhost:8080/AM_JSP_25_04/home/main');</script>"));
