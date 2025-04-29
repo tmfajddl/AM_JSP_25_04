@@ -143,14 +143,14 @@ color: #fa6e8c;
 			<%if(username != null){%>
 	<li><%=username %>님 환영합니다.</li>
 <%} %>
-		<li><a class ="<%= username == null ? "":"active"%>" href="http://localhost:8080/AM_JSP_25_04/member/join2">회원가입</a></li>
-		<li><a class ="<%= username == null ? "":"active"%>" href="http://localhost:8080/AM_JSP_25_04/member/login">로그인</a></li>
-		<li><a class ="<%= username == null ? "active":""%>" href="http://localhost:8080/AM_JSP_25_04/member/logout">로그아웃</a></li>
+		<li><a class ="<%= username == null ? "":"active"%>" href="../member/join2">회원가입</a></li>
+		<li><a class ="<%= username == null ? "":"active"%>" href="../member/login">로그인</a></li>
+		<li><a class ="<%= username == null ? "active":""%>" href="../member/logout">로그아웃</a></li>
 		</ul>
 	</div>
 <div class="button">
 	<a href="../home/main">메인으로 이동</a>
-	<a class ="<%= username == null ? "active":""%>" href="http://localhost:8080/AM_JSP_25_04/home/write2">글쓰기</a>
+	<a class ="<%= username == null ? "active":""%>" href="../article/write2">글쓰기</a>
 </div>
 	<div class = "articleNumber">
 		총 게시글 갯수 :
