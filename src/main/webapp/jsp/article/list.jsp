@@ -81,8 +81,9 @@ color: #fa6e8c;
 }
 
 .page {
+margin: 0 auto;
 	font-size: 1.4rem;
-	width: 100vw;
+	width: 30vw;
 display: flex;
 justify-content: center;
 }
@@ -90,6 +91,8 @@ justify-content: center;
 .page>a {
 	color: black;
 	text-decoration: none;
+	flex-grow:1;
+	width: 10%;
 }
 
 .page>a.cPage {
@@ -107,6 +110,27 @@ margin-top: 20px;
 .active{
 display: none;
 }
+
+.btn2 > ul{
+width: 10vw;
+display: flex;
+justify-content: space-between;
+}
+
+.btn2{
+position: absolute;
+top: 100px;
+right: 10%;
+}
+
+.btn2>ul>li>a{
+border: 2px solid black;
+}
+
+.btn2>ul>li>a:hover{
+border: 2px solid #fa6e8c;
+color: #fa6e8c;
+}
 </style>
 
 </head>
@@ -114,6 +138,13 @@ display: none;
    
 <body>
 	<h2>게시글 목록</h2>
+	<div class = "btn2">
+		<ul>
+		<li><a class ="<%= username == null ? "":"active"%>" href="http://localhost:8080/AM_JSP_25_04/member/join2">회원가입</a></li>
+		<li><a class ="<%= username == null ? "":"active"%>" href="http://localhost:8080/AM_JSP_25_04/member/login">로그인</a></li>
+		<li><a class ="<%= username == null ? "active":""%>" href="http://localhost:8080/AM_JSP_25_04/member/logout">로그아웃</a></li>
+		</ul>
+	</div>
 <div class="button">
 	<a href="../home/main">메인으로 이동</a>
 	<a class ="<%= username == null ? "active":""%>" href="http://localhost:8080/AM_JSP_25_04/home/write2">글쓰기</a>
