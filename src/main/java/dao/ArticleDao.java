@@ -57,6 +57,25 @@ public class ArticleDao {
 		return DBUtil.selectRowIntValue(conn, sql);
     }
     
+    public static List<Article> doSearch(int limitFrom, int itemsInAPage, String search) {
+		SecSql sql = SecSql.from("SELECT *");
+		sql.append("FROM article");
+		sql.append("WHERE title LIKE CONCAT('%', ?, '%')",search);
+		sql.append("ORDER BY id DESC");
+		sql.append("LIMIT ?, ?;", limitFrom, itemsInAPage);
+
+        List<Map<String,Object>> articleRows = DBUtil.selectRows(conn, sql);
+		
+		List<Article> articles = new ArrayList<>();
+		
+		for(Map<String,Object> articleMap : articleRows) {
+			articles.add(new Article(articleMap));
+		}
+		
+		return articles;
+    }
+   
+    
     public static void doUpdate(String title, String body,int id) {
     	SecSql sql = SecSql.from("UPDATE article");
 		sql.append("SET updateDate = NOW(),");

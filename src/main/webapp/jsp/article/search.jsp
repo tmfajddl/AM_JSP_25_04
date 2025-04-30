@@ -10,6 +10,7 @@ int cPage = (int) request.getAttribute("page");
 int totalCnt = (int) request.getAttribute("totalCnt");
 int totalPage = (int) request.getAttribute("totalPage");
 String username = (String) request.getAttribute("username");
+String search = (String) request.getAttribute("search");
 %>
 <!DOCTYPE html>
 <html>

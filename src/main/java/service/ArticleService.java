@@ -25,6 +25,11 @@ public class ArticleService {
 		return articledao.showDetail(id);
     }
     
+    public List<Article> doSearch(int limitFrom, int itemsInAPage, String search) {
+
+		return articledao.doSearch(limitFrom,itemsInAPage, search);
+    }
+    
     public List<Article> showlist(int limitFrom, int itemsInAPage) {
 		return articledao.showlist(limitFrom,itemsInAPage);
     }
