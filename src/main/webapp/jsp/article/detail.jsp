@@ -1,18 +1,24 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
+<%@page import="java.time.LocalDateTime" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
 	<%
 String username = (String) request.getAttribute("username");
-Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("articleRow");
+int id = (int) request.getAttribute("id");
+LocalDateTime regDate = (LocalDateTime) request.getAttribute("regDate");
+LocalDateTime updateDate = (LocalDateTime) request.getAttribute("updateDate");
+String title = (String) request.getAttribute("title");
+String body = (String) request.getAttribute("body");
+String writer = (String) request.getAttribute("writer");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title><%=articleRow.get("id") %>번 게시글 상세페이지</title>
+<title><%=id %>번 게시글 상세페이지</title>
 
 <style>
 body {
@@ -75,35 +81,35 @@ display: none;
 </head>
 <body>
 
-	<h2 class="title"><%=articleRow.get("id") %>번 게시글 상세페이지</h2>
+	<h2 class="title"><%=id %>번 게시글 상세페이지</h2>
 	<section>
 		<div>
 		번호 :
-		<%=articleRow.get("id")%></div>
+		<%=id%></div>
 	<div>
 		날짜 :
-		<%=articleRow.get("regDate")%></div>
+		<%=regDate%></div>
 	<div>
 		업데이트 날짜 :
-		<%=articleRow.get("updateDate")%></div>
+		<%=updateDate%></div>
 	<div>
 		제목 :
-		<%=articleRow.get("title")%></div>
+		<%=title%></div>
 	<div>
 		내용 :
-		<%=articleRow.get("body")%></div>
+		<%=body%></div>
 	<div>
 		작성자 :
-		<%=articleRow.get("writer")%></div>
+		<%=writer%></div>
 	</section>
 
 
 	<div class="button">
 	<%if(username != null){
-	if(username.equals(articleRow.get("writer"))){%>
-		<a href="modify?id=<%=articleRow.get("id")%>">수정</a>
+	if(username.equals(writer)){%>
+		<a href="modify?id=<%=id%>">수정</a>
 		<a onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) { return false; }"
-						href="delete?id=<%=articleRow.get("id")%>">삭제</a>
+						href="delete?id=<%=id%>">삭제</a>
 	<%
 		}
 	}

@@ -8,6 +8,7 @@ import com.KoreaIT.java.AM_jsp.util.DBUtil;
 import com.KoreaIT.java.AM_jsp.util.SecSql;
 
 import dao.ArticleDao;
+import dto.Article;
 
 public class ArticleService {
 	static ArticleDao articledao;
@@ -24,7 +25,7 @@ public class ArticleService {
 		return articledao.showDetail(id);
     }
     
-    public List<Map<String, Object>> showlist(int limitFrom, int itemsInAPage) {
+    public List<Article> showlist(int limitFrom, int itemsInAPage) {
 		return articledao.showlist(limitFrom,itemsInAPage);
     }
     
@@ -39,5 +40,15 @@ public class ArticleService {
     public static int doWrite(String title, String body,String writer) {
 		return articledao.doWrite(title, body, writer);
     }
+
+    public int getTotalCnt() {
+		return articledao.getTotalCnt();
+	}
+
+	public List<Article> getForPrintArticles(int limitFrom, int itemsInAPage) {
+		
+
+		return articledao.getForPrintArticles(limitFrom,itemsInAPage);
+	}
 
 }

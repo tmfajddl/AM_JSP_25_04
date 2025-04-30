@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import dao.ArticleDao;
+import dto.Article;
+import dto.Member;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -38,13 +40,13 @@ public class ArticleController {
 		int totalCnt = articleservice.listCount(limitFrom, itemsInAPage);
 		int totalPage = (int) Math.ceil(totalCnt / (double)itemsInAPage);
 
-		List<Map<String, Object>> articleRows = articleservice.showlist(limitFrom, itemsInAPage);
+		List<Article> articles = articleservice.showlist(limitFrom, itemsInAPage);
 
 		String username = MemberController.username;
 		
 		request.setAttribute("username", username);
 		request.setAttribute("page", page);
-		request.setAttribute("articleRows", articleRows);
+		request.setAttribute("articles", articles);
 		request.setAttribute("totalCnt", totalCnt);
 		request.setAttribute("totalPage", totalPage);
 
@@ -72,8 +74,15 @@ public class ArticleController {
 		int id = Integer.parseInt(request.getParameter("id"));
 
 		Map<String, Object> articleRow = articleservice.showDetail(id);
+		
+		Article article = new Article(articleRow);
 
-		request.setAttribute("articleRow", articleRow);
+		request.setAttribute("id", article.getId());
+		request.setAttribute("regDate", article.getRegDate());
+		request.setAttribute("updateDate", article.getUpdateDate());
+		request.setAttribute("title", article.getTitle());
+		request.setAttribute("body", article.getBody());
+		request.setAttribute("writer", article.getWriter());
 		
         String username = MemberController.username;
 		
@@ -111,8 +120,11 @@ public class ArticleController {
 		int id = Integer.parseInt(inputId);
 
 		Map<String, Object> articleRow = articleservice.showDetail(id);
-		
-		request.setAttribute("articleRow", articleRow);
+		Article article = new Article(articleRow);
+
+		request.setAttribute("id", article.getId());
+		request.setAttribute("title", article.getTitle());
+		request.setAttribute("body", article.getBody());
 		
 		if(MemberController.username==null) {
 			response.getWriter()
