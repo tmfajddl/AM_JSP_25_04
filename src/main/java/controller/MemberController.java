@@ -84,11 +84,11 @@ public class MemberController {
 			memberRow = memberservice.findId(loginid);
 			if(memberRow.isEmpty()) {
 				response.getWriter()
-				.append(String.format("<script>alert('아이디가 존재하지 않습니다.'); location.replace('http://localhost:8080/AM_JSP_25_04/member/login');</script>"));
+				.append(String.format("<script>alert('아이디가 존재하지 않습니다.'); location.replace('../member/login');</script>"));
 			}
 			else if(!memberRow.isEmpty()){
 				response.getWriter()
-				.append(String.format("<script>alert('비밀번호가 틀립니다.'); location.replace('http://localhost:8080/AM_JSP_25_04/member/login');</script>"));
+				.append(String.format("<script>alert('비밀번호가 틀립니다.'); location.replace('../member/login');</script>"));
 			}
           }
         else {
@@ -99,7 +99,7 @@ public class MemberController {
 			session.setAttribute("loginedMemberLoginId", memberRow.get("loginId"));
 			
         	response.getWriter()
-			.append(String.format("<script>alert('%s 회원님 로그인 되었습니다.'); location.replace('http://localhost:8080/AM_JSP_25_04/home/main');</script>",loginid));
+			.append(String.format("<script>alert('%s 회원님 로그인 되었습니다.'); location.replace('../home/main');</script>",loginid));
 			
         	username = loginid;
         }
@@ -109,7 +109,7 @@ public class MemberController {
 	public void dologout() throws IOException {
 		if(MemberController.username == null) {
         	response.getWriter()
-			.append(String.format("<script>alert('로그인 되어있지 않습니다.'); location.replace('http://localhost:8080/AM_JSP_25_04/home/main');</script>"));
+			.append(String.format("<script>alert('로그인 되어있지 않습니다.'); location.replace('../home/main');</script>"));
         }
         else{
         	MemberController.username = null;

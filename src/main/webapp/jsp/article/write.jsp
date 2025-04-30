@@ -64,7 +64,7 @@ color: #fa6e8c;
 <body>
 <h2 class = "title">게시글 작성</h2>
 
-<form action="../article/doWrite" method="post">
+<form action="../article/write" method="post">
 
 <div>제목:
 <input type="text" name="title" required/></div>

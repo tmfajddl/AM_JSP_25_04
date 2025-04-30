@@ -101,9 +101,9 @@ display: none;
 	<div class="button">
 	<%if(username != null){
 	if(username.equals(articleRow.get("writer"))){%>
-		<a href="doModify?id=<%=articleRow.get("id")%>">수정</a>
+		<a href="modify?id=<%=articleRow.get("id")%>">수정</a>
 		<a onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) { return false; }"
-						href="doDelete?id=<%=articleRow.get("id")%>">삭제</a>
+						href="delete?id=<%=articleRow.get("id")%>">삭제</a>
 	<%
 		}
 	}

@@ -92,11 +92,11 @@ public class DispatcherServlet extends HttpServlet {
 				else if (actionMethodName.equals("write2")) {
 					articleController.dowrite2();
 				}
-				else if (actionMethodName.equals("modify")) {
-					articleController.doModify();
-				}
 				else if (actionMethodName.equals("modify2")) {
 					articleController.doModify2();
+				}
+				else if (actionMethodName.equals("modify")) {
+					articleController.doModify();
 				}
 			}
 			else if(controllerName.equals("member")) {

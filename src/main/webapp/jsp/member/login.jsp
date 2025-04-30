@@ -57,7 +57,7 @@ color: #fa6e8c;
 <body>
 <h2 class = "title">로그인</h2>
 
-<form action="http://localhost:8080/AM_JSP_25_04//member/login2" method="post">
+<form action="../member/login2" method="post">
 
 <div>아이디:
 <input type="text" name="loginid" required/></div>

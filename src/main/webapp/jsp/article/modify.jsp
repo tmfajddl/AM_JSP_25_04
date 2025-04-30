@@ -64,7 +64,7 @@ color: #fa6e8c;
 <body>
 <h2 class = "title"><%=articleRow.get("id")%>번 게시글 수정</h2>
 
-<form action="../article/doModify2" method="post">
+<form action="../article/modify2" method="post">
 <div>번호: <input type="text" name = "id" value=<%=articleRow.get("id")%> readonly/></div>
 <div>기존 제목: <%=articleRow.get("title")%></div>
 <div>기존 내용: <%=articleRow.get("body")%></div>
