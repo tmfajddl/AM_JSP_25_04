@@ -162,6 +162,7 @@ color: #fa6e8c;
 <div class="button">
 	<a href="../home/main">메인으로 이동</a>
 	<a class ="<%= username == null ? "active":""%>" href="../article/write2">글쓰기</a>
+	<a href="../article/list">전체글보기</a>
 </div>
 	<div class = "articleNumber">
 		총 게시글 갯수 :

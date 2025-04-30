@@ -155,7 +155,6 @@ public class ArticleController {
 
 	public void doSearch() throws ServletException, IOException {
 		int page = 1;
-		
 		if(request.getParameter("search")!=null) {
 			Article.setSearch(request.getParameter("search")); 
 		}

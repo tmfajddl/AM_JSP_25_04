@@ -255,6 +255,9 @@ color: #fa6e8c;
 	</div>
 	
 	<form class = "search_bar" action="../article/search" name="search_bar">검색
+	<select name="type" id="">
+	<option>제목</option>
+	</select>
 	<input type="text" name="search"/>
 	</form>
 
