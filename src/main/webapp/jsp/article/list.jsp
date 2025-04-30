@@ -187,47 +187,62 @@ color: #fa6e8c;
 	</table>
 
 	<div class="page">
-		<%
-			if(totalPage>10){
-				if(cPage<5){
-					for(int i = 1; i <= 10; i++){
-						%>
-						&nbsp
-						<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
-						&nbsp
-						<%
-					}	
-				}
-			else if(cPage>totalPage-4){
-					for(int i = totalPage-9; i <= totalPage; i++){
-						%>
-						&nbsp
-						<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
-						&nbsp
-						<%
-					}	
-				}
-				else{
-				for(int i = cPage-4; i <= cPage+5; i++){
-					%>
-					&nbsp
-					<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
-					&nbsp
-					<%
-				}
-				}
-			}
-			else{
-				for (int i = 1; i <= totalPage; i++) {
-				%>
-				&nbsp
-				<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
-				&nbsp
-				<%
+	<%
+	if(totalPage<=10){
+		for(int i = 1; i <= totalPage; i++){ %>
+			<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+	<%
 			}
 		}
+	else{  
+	if(cPage>10){%>
+		<a href="list?page=<%=(cPage/10-1)*10+1%>">이전</a>
+		<%
+	}
+		if(cPage<=10){
+		for(int i = 1; i <= 10; i++){%>
+		<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+		<%
+		}
+		}
+		else if(cPage > 10){
+			if(cPage%10 == 1){
+				if(totalPage > cPage+10 ){
+			for(int i = cPage; i < cPage+10; i++){%>
+				<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+			<%
+			}
+			}
+				else{
+					for(int i = cPage; i <= totalPage; i++){
+				%>
+					<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+				<%
+					}
+					}
+			}
+			else{
+				if(totalPage > (cPage/10)*10+11){
+				for(int i = (cPage/10)*10+1; i < (cPage/10)*10+11; i++){%>
+					<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+				<%}
+				}
+				else{
+					for(int i = (cPage/10)*10+1; i <= totalPage; i++){%>
+					<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+				<%}
+				}
+			}
+		}
+		if(cPage/10+1<totalPage/10+1){%>
+		<a href="list?page=<%=(cPage/10+1)*10+1%>">이후</a>
+		<%}
+		
+		else if(cPage%10==0){%>
+			<a href="list?page=<%=(cPage/10)*10+1%>">이후</a>
+		<%}
+	}
 		%>
-
 	</div>
 
 </body>
