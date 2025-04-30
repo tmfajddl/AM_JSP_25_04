@@ -155,6 +155,10 @@ public class ArticleController {
 
 	public void doSearch() throws ServletException, IOException {
 		int page = 1;
+		
+		if(request.getParameter("search")!=null) {
+			Article.setSearch(request.getParameter("search")); 
+		}
 
 		if (request.getParameter("page") != null && request.getParameter("page").length() != 0) {
 			page = Integer.parseInt(request.getParameter("page"));
@@ -163,14 +167,12 @@ public class ArticleController {
 		int itemsInAPage = 10;
 		int limitFrom = (page - 1) * itemsInAPage;
 
-		int totalCnt = articleservice.listCount(limitFrom, itemsInAPage);
+		int totalCnt = articleservice.searchListCount(limitFrom, itemsInAPage,Article.getSearch());
 		int totalPage = (int) Math.ceil(totalCnt / (double)itemsInAPage);
 
-		
-		String search = request.getParameter("search"); 
         String username = MemberController.username;
         
-        List<Article> articles = articleservice.doSearch(limitFrom, itemsInAPage,search);
+        List<Article> articles = articleservice.doSearch(limitFrom, itemsInAPage,Article.getSearch());
 		
 		request.setAttribute("username", username);
 		request.setAttribute("page", page);

@@ -123,5 +123,13 @@ public class ArticleDao {
 		sql.append("FROM article;");
 		return DBUtil.selectRowIntValue(conn, sql);
 	}
+	
+    public static int searchListCount(int limitFrom, int itemsInAPage, String search) {
+		SecSql sql = SecSql.from("SELECT COUNT(*)");
+		sql.append("FROM article");
+		sql.append("WHERE title LIKE CONCAT('%', ?, '%');",search);
+
+		return DBUtil.selectRowIntValue(conn, sql);
+    }
    
 }

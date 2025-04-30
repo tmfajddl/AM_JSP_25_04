@@ -55,5 +55,9 @@ public class ArticleService {
 
 		return articledao.getForPrintArticles(limitFrom,itemsInAPage);
 	}
+	
+    public static int searchListCount(int limitFrom, int itemsInAPage, String search) {
+		return articledao.searchListCount(limitFrom,itemsInAPage,search);
+    }
 
 }

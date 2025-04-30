@@ -1,3 +1,4 @@
+<%@page import="controller.ArticleController"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
 <%@page import="dto.Article" %>
@@ -199,18 +200,18 @@ color: #fa6e8c;
 	<%
 	if(totalPage<=10){
 		for(int i = 1; i <= totalPage; i++){ %>
-			<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+			<a class="<%=cPage == i ? "cPage" : "" %>" href="search?page=<%=i%>&search=<%=Article.getSearch()%>"><%=i%></a>
 	<%
 			}
 		}
 	else{  
 	if(cPage>10){%>
-		<a href="list?page=<%=(cPage/10-1)*10+1%>">이전</a>
+		<a href="search?page=<%=(cPage/10-1)*10+1%>&search=<%=Article.getSearch()%>">이전</a>
 		<%
 	}
 		if(cPage<=10){
 		for(int i = 1; i <= 10; i++){%>
-		<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+		<a class="<%=cPage == i ? "cPage" : "" %>" href="search?page=<%=i%>&search=<%=Article.getSearch()%>"><%=i%></a>
 		<%
 		}
 		}
@@ -218,14 +219,14 @@ color: #fa6e8c;
 			if(cPage%10 == 1){
 				if(totalPage > cPage+10 ){
 			for(int i = cPage; i < cPage+10; i++){%>
-				<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+				<a class="<%=cPage == i ? "cPage" : "" %>" href="search?page=<%=i%>&search=<%=Article.getSearch()%>"><%=i%></a>
 			<%
 			}
 			}
 				else{
 					for(int i = cPage; i <= totalPage; i++){
 				%>
-					<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+					<a class="<%=cPage == i ? "cPage" : "" %>" href="search?page=<%=i%>&search=<%=Article.getSearch()%>"><%=i%></a>
 				<%
 					}
 					}
@@ -233,22 +234,22 @@ color: #fa6e8c;
 			else{
 				if(totalPage > (cPage/10)*10+11){
 				for(int i = (cPage/10)*10+1; i < (cPage/10)*10+11; i++){%>
-					<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+					<a class="<%=cPage == i ? "cPage" : "" %>" href="search?page=<%=i%>&search=<%=Article.getSearch()%>"><%=i%></a>
 				<%}
 				}
 				else{
 					for(int i = (cPage/10)*10+1; i <= totalPage; i++){%>
-					<a class="<%=cPage == i ? "cPage" : "" %>" href="list?page=<%=i%>"><%=i%></a>
+					<a class="<%=cPage == i ? "cPage" : "" %>" href="search?page=<%=i%>&search=<%=Article.getSearch()%>"><%=i%></a>
 				<%}
 				}
 			}
 		}
 		if(cPage/10+1<totalPage/10+1){%>
-		<a href="list?page=<%=(cPage/10+1)*10+1%>">이후</a>
+		<a href="search?page=<%=(cPage/10+1)*10+1%>&search=<%=Article.getSearch()%>">이후</a>
 		<%}
 		
 		else if(cPage%10==0){%>
-			<a href="list?page=<%=(cPage/10)*10+1%>">이후</a>
+			<a href="search?page=<%=(cPage/10)*10+1%>&search=<%=Article.getSearch()%>">이후</a>
 		<%}
 	}
 		%>

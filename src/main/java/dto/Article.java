@@ -10,6 +10,7 @@ public class Article {
 	    private String title;
 	    private String body;
 	    private String writer;
+	    private static String search;
 
 	    public Article(Map<String, Object> articleRow) {
 	        this.id = (int) articleRow.get("id");
@@ -65,5 +66,11 @@ public class Article {
 	    }
 	    public void setWriter(String writer) {
 	        this.writer = writer;
+	    }
+	    public static String getSearch() {
+	        return search;
+	    }
+	    public static void setSearch(String search) {
+	        Article.search = search;
 	    }
 }
